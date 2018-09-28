@@ -1,0 +1,60 @@
+{% extends "Admin/index.twig" %}
+
+
+{% block content %}
+ 
+<!-- DataTables Example -->
+          <div class="card mb-3">
+           <div class="card-header">
+              <i class="fas fa-user-cog"></i>
+              Add Employee
+               <span id="flashMsg" class="alert alert-{{flashClass}}">{{ flash[flashClass][0] }}</span>
+            </div>
+            <div class="card-body">
+              <div class="card-body">
+            <form class="form-role-add" method="POST" action="{{ path_for("employeeAddAction") }}">
+                        <div class="form-group">
+                                <label for="first_name" class="control-label">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Jessica" required>
+                        </div>	
+
+                        <div class="form-group"> 
+                                <label for="last_name" class="control-label">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Rayn" required>
+                        </div>					
+
+                        <div class="form-group"> 
+                                <label for="email" class="control-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="jesrayn@msn.com" required>
+                        </div>	
+
+                        <div class="form-group"> 
+                                <label for="job_title_id" class="control-label">Job Title</label>
+                                <select class="form-control" id="job_title_id" name="job_title_id" required>
+                                    <option value="">Select Job Title</option>
+                                        {% if roles %}
+                                            {% for row in roles %}
+                                                    <option value="{{row.id}}">{{row.job_title}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                </select>
+                        </div>
+                            <div class="form-group">   
+                             <select id="location_id" class="form-control" name="location_id[]" multiple>
+                                    {% if locations %}
+                                            {% for location in locations %}
+                                                    <option value="{{location.id}}">{{location.location_name}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                             </select>
+                            </div>
+                        <div class="form-group"> 
+                                <button type="submit" class="btn btn-primary">Save</button>
+                        </div>     
+
+                </form>	
+                </div>
+                </div>
+          </div>
+
+{% endblock content %}

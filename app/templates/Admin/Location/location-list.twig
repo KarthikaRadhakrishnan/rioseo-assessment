@@ -1,0 +1,67 @@
+{% extends "Admin/index.twig" %}
+
+{% block content %}
+<!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-map-marker"></i>
+              All Locations
+               <span id="flashMsg" class="alert alert-{{flashClass}}">{{ flash[flashClass][0] }}</span>
+                      <div style="float:right;">
+              <a href="{{path_for('createLocation')}}" class="btn btn-info">Add New Location</a>
+          </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                       <th>Id</th>
+                      <th>Location Name</th>
+                      <th>Address</th>
+                      <th>City</th>
+                       <th>State</th>
+                       <th>Latitude</th>
+                      <th>Longitude</th>
+                       <th>Phone</th>
+                        <th>Country</th>
+                         <th>Postal Code</th>
+                      <th data-orderable="false"></th> 
+                       <th data-orderable="false"></th> 
+                    </tr>
+                  </thead>
+                  
+                   <tbody>
+            {% if locations %}
+            {% for row in locations %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.location_name }}</td>
+                        <td>{{ row.address }}</td>
+                        <td>{{ row.city }}</td>
+                        <td>{{ row.state }}</td>
+                        <td>{{ row.latitude }}</td>
+                        <td>{{ row.longitude }}</td>
+                        <td>{{ row.phone }}</td>
+                        <td>{{ row.country }}</td>
+                        <td>{{ row.postal_code}}</td>
+                        <td><a href="{{path_for('editLocation', {'id': row.id})}}" class="btn btn-info">Edit</a></td>
+                        <td>
+                            <form action="?" method="POST" id="deleteLocation{{row.id}}"> 
+                                <input class="btn btn-danger" type = "button" value ="Delete" onclick="deleteLocation({{row.id}});">
+                                 <input type="hidden" id="deletePath_{{row.id}}" name="deletePath" value="{{ path_for('deleteLocation', { 'id': row.id })}}">
+                            </form>
+                            
+                        </td>
+                    </tr>
+                {% endfor %} 
+                    {% else %}
+                        <p>No records found</p>
+                {% endif %}
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+
+{% endblock content %}

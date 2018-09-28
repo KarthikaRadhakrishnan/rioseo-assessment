@@ -1,0 +1,27 @@
+{% extends "Admin/index.twig" %}
+
+{% block content %}
+<!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-users"></i>
+              Add Role 
+            </div>
+            <div class="card-body">
+              <form class="form-role-add" method="POST" action="{{ path_for("roleAddAction") }}">
+                        <div class="form-group"> <!-- Full Name -->
+                                <label for="job_title" class="control-label">Job Title</label>
+                                <input type="text" class="form-control"  name="job_title" maxlength="19" placeholder="Manager, Developer, ..." required>
+                        </div>	
+
+                        <div class="form-group"> <!-- Submit Button -->
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <span id="flashMsg" class="alert alert-{{flashClass}}">{{ flash[flashClass][0] }}</span>
+                        </div>     
+
+                </form>	
+                </div>
+                </div>
+                
+
+{% endblock content %}

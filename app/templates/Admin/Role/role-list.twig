@@ -1,0 +1,51 @@
+{% extends "Admin/index.twig" %}
+
+{% block content %}
+<!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-users"></i>
+              All Roles
+             <span id="flashMsg" class="alert alert-{{flashClass}}">{{ flash[flashClass][0] }}</span>
+            <div style="float:right;">
+            <a href="{{path_for('createRole')}}" class="btn btn-info">Add New Role</a>
+            </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                       <th>Id</th>
+                      <th>Job Title</th>
+                      <th data-orderable="false"></th> 
+                       <th data-orderable="false"></th> 
+                    </tr>
+                  </thead>
+                  
+                   <tbody>
+            {% if roles %}
+            {% for row in roles %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.job_title }}</td>
+                        <td><a href="{{path_for('editRole', {'id': row.id})}}" class="btn btn-info">Edit</a></td>
+                        <td>
+                            <form action="?" method="POST" id="deleteRole{{row.id}}"> 
+                                <input class="btn btn-danger" type = "button" value ="Delete" onclick="deleteRole({{row.id}});">
+                                 <input type="hidden" id="deletePath_{{row.id}}" name="deletePath" value="{{ path_for('deleteRole', { 'id': row.id })}}">
+                            </form>
+                            
+                        </td>
+                    </tr>
+                {% endfor %} 
+                    {% else %}
+                        <p>No records found</p>
+                {% endif %}
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+
+{% endblock content %}

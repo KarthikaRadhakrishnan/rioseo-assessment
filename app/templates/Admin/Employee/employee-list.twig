@@ -1,0 +1,66 @@
+{% extends "Admin/index.twig" %}
+
+{% block content %}
+<!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-user-cog"></i>
+              All Employees
+              <span id="flashMsg" class="alert alert-{{flashClass}}">{{ flash[flashClass][0] }}</span>
+            <div style="float:right;">
+            <a href="{{path_for('createEmployee')}}" class="btn btn-info">Add Employee</a>
+            </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                       <th>Id</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Job Title</th>
+                      <th>Location</th>
+                      <th data-orderable="false"></th> 
+                       <th data-orderable="false"></th> 
+                    </tr>
+                  </thead>
+                  
+                   <tbody>
+            {% if employees %}
+            {% for row in employees %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.first_name }} {{ row.last_name}} </td>
+                        <td>{{ row.email }}</td>
+                        <td>{{row.title.job_title}}</td>
+                        <td class="location-bg-color"><b>
+                        {% for locations in row.employee_locations %}
+                            <span data-toggle="tooltip" 
+                        data-html="true" title="<p>{{locations.address}}, {{locations.city}}, {{locations.postal_code}}</p>
+                        <p>{{locations.state}}, {{locations.country}}</p><p>{{locations.phone}}</p>">
+                         {{ locations.location_name }}{% if not loop.last %}, {% endif %} 
+                         </span>
+                         {% endfor %}
+                          </b></td>
+                        <td><a href="{{path_for('editEmployee', {'id': row.id})}}" class="btn btn-info">Edit</a></td>
+                        <td>
+                            <form action="?" method="POST" id="deleteEmployee{{row.id}}"> 
+                                <input class="btn btn-danger" type = "button" value ="Delete" onclick="deleteEmployee({{row.id}});">
+                                 <input type="hidden" id="deletePath_{{row.id}}" name="deletePath" value="{{ path_for('deleteEmployee', { 'id': row.id })}}">
+                            </form>
+                            
+                        </td>
+                    </tr>
+                   
+                    {% endfor %} 
+                    {% else %}
+                        <p>No records found</p>
+                {% endif %}
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+
+{% endblock content %}

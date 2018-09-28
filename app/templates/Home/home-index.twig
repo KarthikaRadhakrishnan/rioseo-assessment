@@ -1,0 +1,38 @@
+{% extends "Layout/layout.twig" %}
+  
+{% block assets %}
+   
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHZDrG_LmAMid5UO4TZHd7QnNtIE2R54s&callback=initMap"></script>
+
+    {{ assets({files: ['Home/home-index.js'], name: 'home-index.js'}) }}
+    {{ assets({files: ['Home/home-index.css'], name: 'home-index.css'}) }}
+{% endblock %}
+
+{% block content %}
+
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-md-6 banner-text">
+                <h1>{{ 'Welcome to our employee collaboration portal' }}</h1>
+                <div>
+                    {{ 'We work together. HR-Employee portal enables an employee-organisation relationship and empowers employee growth and success. '  }}
+                  </div>
+                  <div>
+                      <span id="view-map"> {{ 'See all our employee global locations'}} <i
+                                    class="fas fa-arrow-right"></i></span>
+                  </div>
+            </div>
+            <div class ="col-md-6">
+
+  <div id="map" style="height: 400px; width: 500px;">
+</div>
+            </div> 
+        </div>
+    </div>
+
+    <template id="user-template">
+        <!-- The source function returns the content of a template without rendering it -->
+        {{ source('Home/home-index.mustache') }}
+    </template>
+
+{% endblock %}

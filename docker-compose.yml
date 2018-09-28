@@ -1,0 +1,50 @@
+version: '3'
+services:
+
+  mysql:
+    image: mysql:5.7
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "project"
+      MYSQL_USER: "project"
+      MYSQL_PASSWORD: "project"
+    volumes:
+      - slimdata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+    - "8080:8080"
+    links:
+    - mysql
+    environment:
+      PMA_HOST: mysql
+
+  nginx:
+    build: ./nginx
+    tty: true
+    ports:
+    - "8000:8000"
+    links:
+    - php
+    - mysql
+    volumes:
+    - ./app:/var/www/
+    - ./nginx/:/etc/nginx/conf.d/
+
+  php:
+    build: ./php/
+    expose:
+    - 9000
+    links:
+    - mysql
+    volumes:
+    - ./app:/var/www/
+
+
+volumes:
+  slimdata:
+    driver: "local"
