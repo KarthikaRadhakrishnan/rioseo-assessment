@@ -1,26 +1,104 @@
-## Instillation
- 1. Install [git.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
- 2. Install Docker for [Mac](https://docs.docker.com/docker-for-mac/install/), or for [Windows](https://docs.docker.com/docker-for-windows/install/).
- 3. Clone this [project](https://github.com/rioseo/code-assessment-php) project that is based off of the [Slim Framework](https://www.slimframework.com/)
- 4. Install dependencies with Composer
-    * Install [Composer](https://symfony.com/doc/2.5/cookbook/composer.html) locally and run composer install for the project.
-    * Or Run Composer from [Docker](https://docs.docker.com/samples/library/composer/).
+# rioseo-assessment
+HR - Employee portal, associate more than one location to employees
 
-## Project
-The company has data for their locations and employees but does not have a clean record of which employees work at which locations. HR has requested a software solution for assigning the employees to locations.
- 1. Initialize your database using the files in the "data" directory
- 2. We have the data of locations and employees but need an interface for assigning employees to the location(s) that they work at. Design a simple employee manager system with the following parameters:
-    * All employees are associated to a single job title.
-    * Employees can be assigned to more than one location.
- 3. Develop a RESTful API to display, create, and update and delete locations and associated personnel.
-    * The api display should allow filtering to get location by id and name.
-    * Build an object oriented solutions.
+Login Credentials
+****************************
+****************************
+Manager
+*********
+vthornley3@blogs.com
+Password: manager
 
-## Bonus Points
- 1. Add a simple front end for bonus points.
- 2. Completeness counts. Don't forget the stuff you would do for a normal project (like tests and formatting).
- 3. Create tests for QA (i.e. unit, Postman).
- 4. Track your work with Git.
-  
-## Submission
-Ask any questions as these requirements may not be complete. When ready, submit your results in either a Git patch file, a link to an accessablie Git repo, or a simple zip file.
+Employee
+*********
+Job Role > 4 - all user login password is same
+Password: user
+
+API End Points
+*****************
+*****************
+1.Employee & Location - Display
+Method: GET
+Full Route: /rioseo-assessment/app/html/api/v1/employees
+Description: List all employees available in the system
+
+2.Employee Details - Display
+Method: GET
+Full Route: /rioseo-assessment/app/html/api/v1/employee/?id=[INTEGER VALUE]
+Description: List individual employee information 
+
+3.Employee with Location - Create
+Method: POST
+Full Route: /rioseo-assessment/app/html/api/v1/employee/create
+Description: Create Employee associate with multiple locations selected
+Sample Form Data
+============================================================
+first_name - xxxx
+last_name  - yyyy
+email      - xxxx@mail.com
+job_title_id - 10
+location_id  - 23,11,54,2
+
+4.Employee with Location - Update
+Method: PUT
+Full Route: /rioseo-assessment/app/html/api/v1/employee/update/?id=[INTEGER VALUE]
+Description: Update Employee with multiple locations selected
+Sample Form Data
+=============================================================
+first_name - xxxx
+last_name  - yyyy
+email      - xxxx@mail.com
+job_title_id - 6
+location_id  - 26,87,65
+
+5. Employee with Location - Delete
+Method: DELETE
+Full Route: /rioseo-assessment/app/html/api/v1/employee/delete/?id=[VALUE]
+Description: Delete Employee with multiple locations selected
+
+6. Location - Display
+Method: GET
+Full Route: /rioseo-assessment/app/html/api/v1/locations
+Description: List all location information
+
+7. Location - Create 
+Method: POST
+Full Route: /rioseo-assessment/app/html/api/v1/location/create
+Description: Create location
+Sample Form Data
+==============================================================
+location_name - xxxx
+address  - yyyy
+city     - memphis
+state - TX
+latitude  - 23.3333
+longitude - 12.1111
+phone - 899.333.3333
+country - US
+postal_code - 9202
+
+8. Location - Update 
+Method: PUT
+Full Route: /rioseo-assessment/app/html/api/v1/location/update
+Description: Update location
+Sample Form Data
+===============================================================
+location_name - yyyyy
+address  - zzzzzzz
+city     - Lancaster
+state - PA
+latitude  - 23.3333
+longitude - 12.1111
+phone - 899.333.3333
+country - US
+postal_code - 9202
+
+9. Location - Delete
+Method: DELETE
+Full Route: /rioseo-assessment/app/html/api/v1/location/delete/?id=[VALUE]
+Description: Delete location
+
+10. Employee and Location - Association - Search
+Method: Search
+Full Route: /rioseo-assessment/app/html/api/v1/search/employee/null/null/LOCATIONID/LOCATIONNAME
+Description: Search by location ID and location name
